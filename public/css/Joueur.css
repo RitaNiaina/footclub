@@ -1,0 +1,80 @@
+.overlay h2{
+  padding-top: 200px;
+  margin-left: 8%;
+}
+.sarygallary{
+  background: url(/img/ballon.jpg);
+  height: 42vh;
+max-height: 500px;
+background-position: center;
+background-size: cover;
+min-height: 10px;
+}
+.gallery {
+  margin: 25px;
+  border: 1px solid #ccc;
+  width: 210px;
+  height: 355px;
+}
+input{
+background-color:white;
+border: none;
+border-color: white;
+width: 100%;
+padding: 7px;
+color: black;
+}
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery a img {
+  width: 100%;
+  height: 30%;
+}
+div.desc {
+  padding: 10px;
+  text-align: center;
+}
+.sary{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr 1fr 1fr;
+}
+label{
+    
+    color:black;
+    font-size: 18px;
+    padding: 1Opx;
+}
+
+.form-control{
+background-color:white;
+border: none;
+border-color: white;
+width: 95%;
+padding: 7px;
+}
+
+#mySearch {
+  width: 30%;
+  font-size: 18px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin: 3px;
+}
+.button {
+  border: none;
+  
+  outline: 0;
+  display: inline-block;
+  padding: 5px;
+  color: white;
+  background-color: #FF6600;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}

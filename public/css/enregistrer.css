@@ -1,0 +1,63 @@
+
+body{ 
+    background: url(/img/fond.jpg) ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0%;
+    }
+form {
+     width: 500px;
+     border: 2px solid #ccc;
+     padding: none;
+     background: #fff;
+     border-radius: 5px;    
+}
+
+img{ 
+    align-content: center;
+     margin-left:190px;
+}
+h4{ 
+    color:black;
+     text-align: center;
+     
+}
+
+.error{
+    background: #F2DEDE;
+    color: #A94442;
+    padding: 1Opx ;
+    width: 95%;
+    border-radius: 5px;
+    margin:10px auto;
+}
+
+input,button,select{
+  border: 5px;
+  width: 100%;
+ 
+  margin-top: 30px ;
+   border-radius: 50px;
+}
+.cnx{
+    border-radius: 50px;
+}
+.card-body {
+  background-color: #FF6600;
+  width: 495px;
+}
+
+.navbar {
+    width: 100%;
+    padding:0%;
+  
+  }
+  
+  .navbar a {
+    color: #f2f2f2;
+    font-size: 14px;
+  }
+  
+ 

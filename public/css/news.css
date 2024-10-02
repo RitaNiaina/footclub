@@ -1,0 +1,48 @@
+.overlay h2{
+    padding-top: 200px;
+    margin-left: 2%;
+}
+.sarygallary{
+    background: url(/img/football.jpg);
+    height: 40vh;
+  max-height: 500px;
+  background-position: center;
+  background-size: cover;
+  min-height: 10px;
+}
+
+input{
+    background-color:white;
+    border: none;
+    display: block;
+    color: black;
+    width: 110%;
+    padding: 1px;
+    margin: 0px auto;
+    border-radius: 0px;
+}
+*{
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+form {
+     height: 300px;
+     width: 600px;
+     border: 2px solid #ccc;
+     padding: 30px;
+     background: #fff;
+     border-radius: 15px;
+     margin-left:20%;
+}
+
+.titre{
+
+    color:black;
+    padding: 40px;
+    margin-left:10%;
+    
+}
+.form-group{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+}

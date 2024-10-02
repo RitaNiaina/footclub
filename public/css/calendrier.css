@@ -1,0 +1,55 @@
+.overlay h2{
+    padding-top: 200px;
+    margin-left: 15%;
+}
+.sarygallary{
+    background: url(/img/ballon.jpg);
+    height: 42vh;
+  max-height: 500px;
+  background-position: center;
+  background-size: cover;
+  min-height: 10px;
+}
+
+input{
+    background-color: chocolate;
+    color:white;
+    border: none;
+    width: 95%;
+    padding: 7px;
+}
+
+.form-control{
+    background-color:white;
+    color:black;
+    border: none;
+    width: 5%;
+    margin: 15px auto;
+    text-align:center;
+    
+}
+*{
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+form {
+    background-color: chocolate;
+    height: 200px;
+     width: 600px;
+     border: 1px solid #ccc;
+     padding: 30px;
+     border-radius: 14px;
+     margin-left:30%; 
+     justify-content:center; 
+     
+}
+
+.sary{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr ;
+}
+.form-group{
+
+    display:grid;
+    grid-template-columns:1fr ;
+}
