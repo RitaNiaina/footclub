@@ -13,6 +13,14 @@
     <link href="<?php echo asset('css/sb-admin-2.min.css')?>" rel="stylesheet">
    
     <link href="<?php echo asset('vendor/datatables/dataTables.bootstrap4.min.css')?>" rel="stylesheet">
+
+ {{-- insertion carte --}}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
     <script type="text/javascript">
         function preventBack() {window.history.forward();}
         setTimeout("preventBack()",0);
@@ -207,68 +215,77 @@
     <div class="card-header py-3">
       
         <!-- Modal -->
-<div class="modal fade" id="completModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="exampleModalLabel">Ajouter calendrier</h5>
-<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-<form action="/ajout/matche" enctype="multipart/form-data" method="post">
-@csrf
-
-<div class="form-group">
-          <label for="id_club" class="form-label">Club</label>
-          <select class="form-control" name="id_club" required>
-          @foreach (\App\Models\Club::all() as $row)
-          <option value="{{$row->id_club}}">{{$row->nom_club}}</option>
-          @endforeach
-          </select>
-      </div>
-<div class="form-group">
-          <label for="id_equi" class="form-label">Equipe</label>
-          <select class="form-control" name="id_equi" required>
-          @foreach (\App\Models\Equipe::all() as $row)
-          <option value="{{$row->id_equi}}">{{$row->nom_equi}}</option>
-          @endforeach
-          </select>
-      </div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Date match</label>
-<input type="date" class="form-control" name="date_mat" required>   
-</div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Heure match</label>
-<input type="time" class="form-control" name="heure_mat" placeholder="Heure du match" required>    
-</div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Match</label>
-<input type="text" class="form-control" name="caract_mat" placeholder=" Caractere match" required>   
-</div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Lieu</label>
-<input type="text" class="form-control" name="lieu_match" placeholder=" lieu match" required>   
-</div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Latitude</label>
-<input type="text" class="form-control" name="latitude" placeholder="  Latitude" required>   
-</div>
-<div class="form-group">
-<label for="completeNom" class="form-label">Longitude</label>
-<input type="text" class="form-control" name="longitude" placeholder=" Longitude" required>   
-</div>
-
-      </div>
-      <div class="modal-footer">
-      <button type="submit" name="submit" class="btn btn-success" >@lang('public.AJOUT')</button>
-      <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
-      </form>
-      </div>
-    </div>
-  </div>
-</div>
-
+        <div class="modal fade" id="completModale" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Ajouter calendrier</h5>
+                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <!-- Colonne gauche : Formulaire -->
+                    <div class="col-md-6">
+                      <form action="/ajout/matche" enctype="multipart/form-data" method="post">
+                        @csrf
+                        <div class="form-group">
+                          <label for="id_club" class="form-label">Club</label>
+                          <select class="form-control" name="id_club" required>
+                            @foreach (\App\Models\Club::all() as $row)
+                            <option value="{{$row->id_club}}">{{$row->nom_club}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="id_equi" class="form-label">Equipe</label>
+                          <select class="form-control" name="id_equi" required>
+                            @foreach (\App\Models\Equipe::all() as $row)
+                            <option value="{{$row->id_equi}}">{{$row->nom_equi}}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Date match</label>
+                          <input type="date" class="form-control" name="date_mat" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Heure match</label>
+                          <input type="time" class="form-control" name="heure_mat" placeholder="Heure du match" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Match</label>
+                          <input type="text" class="form-control" name="caract_mat" placeholder="Caractere match" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Lieu</label>
+                          <input type="text" class="form-control" name="lieu_match" placeholder="Lieu match" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Latitude</label>
+                          <input type="text" class="form-control" name="latitude" placeholder="Latitude" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="completeNom" class="form-label">Longitude</label>
+                          <input type="text" class="form-control" name="longitude" placeholder="Longitude" required>
+                        </div>
+                      </form>
+                    </div>
+          
+                    <!-- Colonne droite : Carte Leaflet -->
+                    <div class="col-md-6">
+                      <div id="map" style="width: 100%; height: 400px;"></div>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="modal-footer">
+                  <button type="submit" name="submit" class="btn btn-success">@lang('public.AJOUT')</button>
+                  <button type="button" class="btn btn-dark" data-dismiss="modal">Annuler</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#completModale">
 @lang('public.AJOUT')
@@ -476,6 +493,58 @@ return true;
     })
   })
   </script>
+
+
+<script>
+    // Initialiser la carte
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    // Ajouter un marqueur déplaçable
+    var marker = L.marker([51.505, -0.09], {draggable: true}).addTo(map);
+
+    // Fonction pour enregistrer la localisation
+    function saveLocation() {
+        var position = marker.getLatLng();
+        var latitude = position.lat;
+        var longitude = position.lng;
+
+        // Envoyer les coordonnées à Laravel via Axios
+        axios.post('http://localhost:8000/save-coordinates', {
+            latitude: latitude,
+            longitude: longitude
+        })
+        .then(function (response) {
+            console.log(response);
+            alert('Coordinates saved successfully: ' + response.data.latitude + ', ' + response.data.longitude);
+        })
+        .catch(function (error) {
+            console.error('Error saving coordinates:', error);
+            alert('Error saving coordinates');
+        });
+    }
+
+    // Événement au clic du bouton pour sauvegarder la localisation
+    document.getElementById('save-btn').addEventListener('click', saveLocation);
+
+    // Code pour réajuster la taille de la carte lorsque le modal est ouvert
+$('#completModale').on('shown.bs.modal', function () {
+    // Ajouter un délai pour que le modal soit entièrement visible avant de redimensionner la carte
+    setTimeout(function () {
+        // Redimensionner la carte
+        map.invalidateSize(); 
+        
+        // Centrer la carte sur les coordonnées souhaitées après l'ouverture du modal
+        // Remplacer par vos propres coordonnées si nécessaire
+        map.setView(new L.LatLng(51.505, -0.09), 13);  
+    }, 100);  // Le délai de 100ms permet au modal de se stabiliser avant l'action
+});
+
+</script>
 
 </body>
 </html>
