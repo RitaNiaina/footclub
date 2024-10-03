@@ -18,11 +18,11 @@ return new class extends Migration
             $table->date('date_mat');
             $table->time('heure_mat');
             $table->string('caract_mat');
-            $table->integer('statue');
-            $table->integer('scor_mmfc');
-            $table->integer('scor_mat');
-            $table->integer('carte_rouge');
-            $table->integer('carte_jaune');
+            $table->integer('statue')->default(1);
+            $table->integer('scor_mmfc')->nullable();
+            $table->integer('scor_mat')->nullable();
+            $table->integer('carte_rouge')->nullable();
+            $table->integer('carte_jaune')->nullable();
             $table->unsignedBigInteger('id_champ');
             $table->foreign('id_club')
             ->references('id_club')->on('clubs')->onDelete('cascade');
@@ -30,6 +30,9 @@ return new class extends Migration
             ->references('id_equi')->on('equipes')->onDelete('cascade');
             $table->foreign('id_champ')
             ->references('id_champ')->on('champions')->onDelete('cascade');
+            $table->string('lieu_match');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->timestamps();
         });
     }

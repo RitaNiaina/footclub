@@ -21,6 +21,9 @@ class Matcher extends Model
         'carte_rouge',
         'carte_jaune',
         'id_champ',
+        'lieu_match',
+        'latitude',
+        'longitude',
         
     ];
 }

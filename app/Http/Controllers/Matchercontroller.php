@@ -30,6 +30,9 @@ class Matchercontroller extends Controller
         $matche->carte_rouge = $request->carte_rouge;
         $matche->carte_jaune = $request->carte_jaune;
         $matche->id_champ = $request->id_champ;
+        $matche->lieu_match = $request->lieu_match;
+        $matche->latitude = $request->latitude;
+        $matche->longitude = $request->longitude;
         $matche->save();
 
         return redirect('/matches')->with('success','Calendrier a bien été ajouté');

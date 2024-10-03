@@ -18,8 +18,16 @@ class Jouercontroller extends Controller
     }
     
     public function ajout_joeur(Request $request){
+        $request->validate([
+            'datenaiss_jous' => [
+                'required',
+                'date',
+                'before_or_equal:' . now()->subYears(12)->format('Y-m-d'),
+            ],
+        ]);
         $images= time().'.'.$request->photo_jou->extension();
         $request->photo_jou->move(public_path('joueur'),$images);
+        
         
         try {
         $joeur= new Joueur();

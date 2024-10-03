@@ -246,6 +246,18 @@
 <label for="completeNom" class="form-label">Match</label>
 <input type="text" class="form-control" name="caract_mat" placeholder=" Caractere match" required>   
 </div>
+<div class="form-group">
+<label for="completeNom" class="form-label">Lieu</label>
+<input type="text" class="form-control" name="lieu_match" placeholder=" lieu match" required>   
+</div>
+<div class="form-group">
+<label for="completeNom" class="form-label">Latitude</label>
+<input type="text" class="form-control" name="latitude" placeholder="  Latitude" required>   
+</div>
+<div class="form-group">
+<label for="completeNom" class="form-label">Longitude</label>
+<input type="text" class="form-control" name="longitude" placeholder=" Longitude" required>   
+</div>
 
       </div>
       <div class="modal-footer">
@@ -293,6 +305,9 @@
       <td>{{$matche->date_mat}}</td>
       <td>{{$matche->heure_mat}}</td>
       <td>{{$matche->caract_mat}}</td>
+      <td>{{$matche->lieu_match}}</td>
+      <td>{{$matche->latitude}}</td>
+      <td>{{$matche->longitude}}</td>
       <td>
       <button  value="{{$matche->id_mat}}" class="modifbtn btn btn-dark" >SCORE</button>
       <button value="{{$matche->id_mat}}" class="deletbtn" ><img src="img/SUP.png" width="30px"></button>
