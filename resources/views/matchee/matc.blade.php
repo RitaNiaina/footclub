@@ -14,10 +14,6 @@
    
     <link href="<?php echo asset('vendor/datatables/dataTables.bootstrap4.min.css')?>" rel="stylesheet">
 
- {{-- insertion carte --}}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 
 
@@ -262,11 +258,11 @@
                         </div>
                         <div class="form-group">
                           <label for="completeNom" class="form-label">Latitude</label>
-                          <input type="text" class="form-control" name="latitude" placeholder="Latitude" required>
+                          <input type="text" class="form-control" name="latitude" placeholder="Latitude" id="latitude" required>
                         </div>
                         <div class="form-group">
                           <label for="completeNom" class="form-label">Longitude</label>
-                          <input type="text" class="form-control" name="longitude" placeholder="Longitude" required>
+                          <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" required>
                         </div>
                       </form>
                     </div>
@@ -493,19 +489,49 @@ return true;
     })
   })
   </script>
-
+  {{-- Insertion carte --}}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    // Initialiser la carte
-    var map = L.map('map').setView([51.505, -0.09], 13);
+    var map, marker;  // Déclaration des variables globales
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(map);
+    // Initialiser la carte lorsque le modal est ouvert
+    $('#completModale').on('shown.bs.modal', function () {
+        if (!map) {  // Initialiser la carte seulement si elle n'a pas déjà été créée
+            map = L.map('map').setView([51.505, -0.09], 13);
 
-    // Ajouter un marqueur déplaçable
-    var marker = L.marker([51.505, -0.09], {draggable: true}).addTo(map);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // Ajouter un marqueur déplaçable
+            marker = L.marker([51.505, -0.09], {draggable: true}).addTo(map);
+
+            marker.on('moveend', function () {
+            var lat = marker.getLatLng().lat;
+            var lng = marker.getLatLng().lng;
+            console.log(lat, lng);
+            
+            // Update the separate fields for latitude and longitude
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lng;
+            });
+
+            // Réajuster la taille de la carte après l'ouverture complète du modal
+            setTimeout(function () {
+                map.invalidateSize();  // Redimensionner la carte pour éviter les problèmes de rendu
+            }, 100);  // Le délai de 100ms permet au modal de se stabiliser avant l'action
+        } else {
+            // Si la carte existe déjà, réajuster simplement sa taille
+            setTimeout(function () {
+                map.invalidateSize();
+                map.setView(new L.LatLng(51.505, -0.09), 13);  // Centrer sur les coordonnées
+            }, 100);
+        }
+    });
 
     // Fonction pour enregistrer la localisation
     function saveLocation() {
@@ -530,21 +556,8 @@ return true;
 
     // Événement au clic du bouton pour sauvegarder la localisation
     document.getElementById('save-btn').addEventListener('click', saveLocation);
-
-    // Code pour réajuster la taille de la carte lorsque le modal est ouvert
-$('#completModale').on('shown.bs.modal', function () {
-    // Ajouter un délai pour que le modal soit entièrement visible avant de redimensionner la carte
-    setTimeout(function () {
-        // Redimensionner la carte
-        map.invalidateSize(); 
-        
-        // Centrer la carte sur les coordonnées souhaitées après l'ouverture du modal
-        // Remplacer par vos propres coordonnées si nécessaire
-        map.setView(new L.LatLng(51.505, -0.09), 13);  
-    }, 100);  // Le délai de 100ms permet au modal de se stabiliser avant l'action
-});
-
 </script>
+
 
 </body>
 </html>
